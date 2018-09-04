@@ -108,24 +108,30 @@
 
 
 
-  <meta name="description" content="Justin 的一亩三分地">
-<meta name="keywords" content="Justin,iOS,MacOS,OC,Objective-C,Swift,JS,Javascript,qgewfg,764">
-<meta property="og:type" content="website">
-<meta property="og:title" content="听风">
-<meta property="og:url" content="https://qysit.com/index.html">
+  <meta name="description" content="缘起最近一直在做微信小游戏，和其他 Native 项目一样，我们希望也能通过 Jenkins 可以做到方便地对项目进行自动打包分发。但是微信小游戏与之前的一般项目相比，需要在微信开发者工具上扫码登录才能上传到微信后台，下面就详细说明一下这个比一般多项目多出的步骤要如何配置。 准备工作因为我们想要在构建过程中进行扫码登录，那么就肯定需要有个地方展示这个二维码。如果展示在每次 build 的 Cons">
+<meta name="keywords" content="Jenkins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小游戏 Jenkins 持续集成">
+<meta property="og:url" content="https://qysit.com/2018/09/04/微信小游戏-Jenkins-持续集成/index.html">
 <meta property="og:site_name" content="听风">
-<meta property="og:description" content="Justin 的一亩三分地">
+<meta property="og:description" content="缘起最近一直在做微信小游戏，和其他 Native 项目一样，我们希望也能通过 Jenkins 可以做到方便地对项目进行自动打包分发。但是微信小游戏与之前的一般项目相比，需要在微信开发者工具上扫码登录才能上传到微信后台，下面就详细说明一下这个比一般多项目多出的步骤要如何配置。 准备工作因为我们想要在构建过程中进行扫码登录，那么就肯定需要有个地方展示这个二维码。如果展示在每次 build 的 Cons">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://qysit.com/images/jenkins/description-setter-plugin.png">
+<meta property="og:image" content="https://qysit.com/images/jenkins/add-build-step.png">
+<meta property="og:image" content="https://qysit.com/images/jenkins/build-description-configuration.png">
+<meta property="og:image" content="https://qysit.com/images/jenkins/build-history.png">
+<meta property="og:updated_time" content="2018-09-04T09:58:55.439Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="听风">
-<meta name="twitter:description" content="Justin 的一亩三分地">
+<meta name="twitter:title" content="微信小游戏 Jenkins 持续集成">
+<meta name="twitter:description" content="缘起最近一直在做微信小游戏，和其他 Native 项目一样，我们希望也能通过 Jenkins 可以做到方便地对项目进行自动打包分发。但是微信小游戏与之前的一般项目相比，需要在微信开发者工具上扫码登录才能上传到微信后台，下面就详细说明一下这个比一般多项目多出的步骤要如何配置。 准备工作因为我们想要在构建过程中进行扫码登录，那么就肯定需要有个地方展示这个二维码。如果展示在每次 build 的 Cons">
+<meta name="twitter:image" content="https://qysit.com/images/jenkins/description-setter-plugin.png">
 
 
 
 
 
 
-  <link rel="canonical" href="https://qysit.com/"/>
+  <link rel="canonical" href="https://qysit.com/2018/09/04/微信小游戏-Jenkins-持续集成/"/>
 
 
 
@@ -135,7 +141,7 @@
   };
 </script>
 
-  <title>听风</title>
+  <title>微信小游戏 Jenkins 持续集成 | 听风</title>
   
 
 
@@ -192,8 +198,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -230,7 +235,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
   </li>
@@ -290,9 +295,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -324,11 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/04/微信小游戏-Jenkins-持续集成/" itemprop="url">
-                  微信小游戏 Jenkins 持续集成
-                </a>
+          <h1 class="post-title" itemprop="name headline">微信小游戏 Jenkins 持续集成
               
             
           </h1>
@@ -363,6 +364,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/04/微信小游戏-Jenkins-持续集成/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/04/微信小游戏-Jenkins-持续集成/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -387,9 +398,7 @@
       
 
       
-        
-          
-            <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最近一直在做微信小游戏，和其他 Native 项目一样，我们希望也能通过 Jenkins 可以做到方便地对项目进行自动打包分发。但是微信小游戏与之前的一般项目相比，需要在微信开发者工具上<strong>扫码登录</strong>才能上传到微信后台，下面就详细说明一下这个比一般多项目多出的步骤要如何配置。</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最近一直在做微信小游戏，和其他 Native 项目一样，我们希望也能通过 Jenkins 可以做到方便地对项目进行自动打包分发。但是微信小游戏与之前的一般项目相比，需要在微信开发者工具上<strong>扫码登录</strong>才能上传到微信后台，下面就详细说明一下这个比一般多项目多出的步骤要如何配置。</p>
 <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>因为我们想要在构建过程中进行扫码登录，那么就肯定需要有个地方展示这个二维码。如果展示在每次 build 的 Console Output 中的话，每次都需要点击进入 Console Output 页面，等待它 build 完成，执行到这里，而且在这里输出的都是纯文本，很难展示出可供扫描的二维码。所以我们需要安装 <a href="http://wiki.jenkins-ci.org/display/JENKINS/Description+Setter+Plugin" target="_blank" rel="noopener">description setter plugin</a> 这个插件，它可以在每次 build 任务下边展示出任何你想展示的内容。<br><img src="/images/jenkins/description-setter-plugin.png" alt="description-setter-plugin"></p>
 <h3 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h3><p>我们当前使用的引擎是 Cocos Creator 1.9.1，和其他项目项目一样，构建过程就是通过 shell 脚本调用 Creator 的 CLI 命令，只不过这次 platform 选择的是 wecahtgame，如果有子域项目还需要先行构建子域项目。对构建过程有疑问的朋友，可以在网上搜索 Creator Jenkins 打包，有很多教程，所以构建这步本文就略过了。</p>
 <h3 id="上传资源"><a href="#上传资源" class="headerlink" title="上传资源"></a>上传资源</h3><p>微信要求首包小于 4MB，本地资源加上代码包括 Cocos2d 引擎代码一共不能超过 4MB，所以资源稍大一些就需要上传到远程服务器在微信小游戏中再动态下载回来。具体是首次启动时全部下载还是使用到的时候就看自己的策略了。所以这里可能有一个上传资源的过程，我们这里采用的是先压缩成 zip 包，通过 scp 命令上传到服务器上，然后再 unzip，随后删除 build 目录下的 res，确保首包不大于 4MB。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">echo "压缩资源包"</span><br><span class="line">zipName=res.$&#123;BUILD_NUMBER&#125;.zip </span><br><span class="line">cp -rf ./build/wechatgame/res ./</span><br><span class="line">zip $&#123;zipName&#125; -r res</span><br><span class="line">rm -rf ./res</span><br><span class="line">echo "上传资源到服务器"</span><br><span class="line">ssh root@$&#123;REMOTE_IP&#125; "rm -rf $&#123;REMOTE_DIR&#125;"</span><br><span class="line">ssh root@$&#123;REMOTE_IP&#125; "mkdir -p $&#123;REMOTE_DIR&#125;"</span><br><span class="line">scp -r $&#123;zipName&#125; root@$&#123;REMOTE_IP&#125;:$&#123;REMOTE_DIR&#125;</span><br><span class="line">rm -rf ./build/wechatgame/res</span><br></pre></td></tr></table></figure></p>
@@ -418,8 +427,6 @@
 </ul>
 <p>以上就是我最近总结的微信小游戏 / 小程序使用 Jenkins 系统自动化打包分发的经验，有哪里写得不对或是可以改进的地方，欢迎多多留言评论~</p>
 
-          
-        
       
     </div>
 
@@ -437,158 +444,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qysit.com/2018/08/30/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Justin">
-      <meta itemprop="description" content="Justin 的一亩三分地">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="听风">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/30/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-08-30 18:03:51" itemprop="dateCreated datePublished" datetime="2018-08-30T18:03:51+08:00">2018-08-30</time>
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/30/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -598,14 +483,22 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -626,8 +519,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -709,6 +611,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#缘起"><span class="nav-number">1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建"><span class="nav-number">3.</span> <span class="nav-text">构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传资源"><span class="nav-number">4.</span> <span class="nav-text">上传资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传到微信"><span class="nav-number">5.</span> <span class="nav-text">上传到微信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步，生成登录二维码："><span class="nav-number">5.1.</span> <span class="nav-text">第一步，生成登录二维码：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步，展示登录二维码："><span class="nav-number">5.2.</span> <span class="nav-text">第二步，展示登录二维码：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步，上传"><span class="nav-number">5.3.</span> <span class="nav-text">第三步，上传</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -842,6 +760,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
 
   
 
